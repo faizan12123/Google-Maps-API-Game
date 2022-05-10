@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>Lab3</title>
+</head>
+
+
+<style>
+
+    #map {
+   
+       width: 100%;
+   
+       height: 400px;
+   
+       background-color: grey;
+   
+   }
+   
+   </style>
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script> 
+
+<script>
+        function initMap() {
+
+            var macc = {lat: 42.1382114, lng: -71.5212585};
+
+            var map = new google.maps.Map(
+
+            document.getElementById('map'), {zoom: 1, center: macc});
+
+            var marker = new google.maps.Marker({position: macc, map: map});
+}
+
+
+
+
+   
+</script>
+<script async defer
+
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3srrE7OGsBmuLf0uJqm8gqtgzxu2swLU&callback=initMap">
+
+    </script>
+
+
+<body>
+    <div id="map"></div>
+</body>
+</html>
