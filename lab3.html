@@ -1,53 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-    <title>Lab3</title>
-</head>
 
 
-<style>
+    <style>
 
-    #map {
-   
-       width: 100%;
-   
-       height: 400px;
-   
-       background-color: grey;
-   
-   }
-   
-   </style>
+ #map {
+    margin-left: 5%;
+    margin-top: 5%;
+  height: 80%;
+  width: 30%;
+  
+}
 
+ html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        background-color: black;
+  }
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script> 
+.quiz_box{
+  border: 10px solid orange;
+  float: right;
+  background-color: black;
+  color: white;
+  margin-right: 20%; 
+  margin-left: 3%;
+  margin-top: 10%;
+  font-size: 25px;
+  margin-bottom:10%;
+  padding:5%
+  
+}
 
-<script>
-        function initMap() {
+.score{
+  Text-align: center;
+  color: white;
+  margin-bottom: 10%;
+  font-size: 25px;
+}
 
-            var macc = {lat: 42.1382114, lng: -71.5212585};
-
-            var map = new google.maps.Map(
-
-            document.getElementById('map'), {zoom: 1, center: macc});
-
-            var marker = new google.maps.Marker({position: macc, map: map});
+.play_again{
+  background-color: white;
+  color:black;
+  margin-top: 10%;
+  margin-left: 40%;
 }
 
 
 
 
-   
-</script>
-<script async defer
+    </style>
 
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3srrE7OGsBmuLf0uJqm8gqtgzxu2swLU&callback=initMap">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script> 
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3srrE7OGsBmuLf0uJqm8gqtgzxu2swLU&callback=initMap&v=weekly&libraries=geometry&libraries=places"
+      defer
+    ></script>
+    
+    <script>
+      let map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 34.2407, lng: -118.5300},
+        mapId:"6e3bde3c52bebc4f",
+        draggable: false,
+        zoom: 17,
+        minZoom: 17,
+        maxZoom: 17,
+        disableDefaultUI: true,
+        scrollwheel: false,
+        disableDoubleClickZoom: false,
+        gestureHandling: 'none',
+  });
+
+  let questionsDom = document.getElementById('quiz_question')
+  let score = document.getElementById('score')
+  let playAgain = document.getElementById('play_again')
+  score.style.visibility = 'hidden';
+  playAgain.style.visibility = 'hidden';
+  let questionState =0
+  scoreCount = 0;
+  clickPositionLat = 0
+  clickPositionLng = 0
+
+  const questionsObject = [
+    {
+    id: 1,
+    q: "Where is Jacaranda Hall?",
+    a: [
+    { lat: 34.24215046874466, lng: -118.52779614619912 },
+    { lat: 34.24215046874466, lng: -118.52779614619912 },
+    { lat: 34.24215046874466, lng: -118.52779614619912 },
+    { lat: 34.24215046874466, lng: -118.52779614619912 },
+      ]
+    },
+    {
+    id: 2,
+    q: "Where is Bayramian Hall?",
+    a: ""
+    },
+    {
+    id: 3,
+    q: "Where is Live Oak Hall?",
+    a: ""
+    },
+    {
+    id: 4,
+    q: "Where is Magnolia Hall?",
+    a: ""
+    },
+    {
+    id: 5,
+    q: "Where is Arbor Court?",
+    a: ""
+    },
+  ]
+  
+
+  function questionIterator(i){
+    questionsDom.innerText = "Question " + questionsObject[i].id + ": " + questionsObject[i].q
+  }
+  questionIterator(0)
+
+
+  const jacaranda = new google.maps.Polygon({ paths: questionsObject[0].a });
+
+
+
+
+
+  map.addListener("dblclick", function(e) {
+
+    if(questionState<4){
+        if(questionState <100){
+          if(google.maps.geometry.poly.containsLocation(e.latLng, jacaranda)){
+            alert("yes")
+          }
+      }
+
+      questionState += 1
+        clickPositionLat = e.latLng.lat()
+        clickPositionLng = e.latLng.lng()
+        console.log(clickPositionLat)
+        console.log(clickPositionLng)
+        
+        
+    }
+
+    if(questionState == 4) {
+      console.log("finished")
+      playAgain.style.visibility = "visible"
+      score.style.visibility = 'visible';
+      score.innerText = ("Score: " + scoreCount)
+    }
+    questionIterator(questionState)
+})
+
+
+
+playAgain.addEventListener("click", function(e){
+  scoreCount = 0;
+  questionState = 0;
+  questionIterator(questionState)
+  score.style.visibility = "hidden"
+  playAgain.style.visibility = "hidden"
+})
+
+}
+
+window.initMap = initMap;
+
+
+        $( window ).on( "load", function() {
+
+        })
+
 
     </script>
 
 
+</head>
+
+
+
+
+
 <body>
+  <!-- <div class="parent_div"> -->
+
+    
+    <div id="quiz_box" class = "quiz_box">
+      <div id="score" class="score"></div>
+      <div id="quiz_question" class="quiz_question"></div>
+      <button id="play_again" class="play_again">Play Again</button>
+    </div>
+    
+
+    </div>
     <div id="map"></div>
+
+    
+
+
+  <!-- </div> -->
+
 </body>
 </html>
