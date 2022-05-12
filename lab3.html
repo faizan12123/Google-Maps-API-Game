@@ -28,11 +28,36 @@
   color: white;
   margin-right: 20%; 
   margin-left: 3%;
-  margin-top: 10%;
+  margin-top: 20%;
   font-size: 25px;
   margin-bottom:10%;
   padding:5%
-  
+}
+
+.quiz_box_success{
+  border: 10px solid green;
+  float: right;
+  background-color: black;
+  color: white;
+  margin-right: 20%; 
+  margin-left: 3%;
+  margin-top: 20%;
+  font-size: 25px;
+  margin-bottom:10%;
+  padding:5%
+}
+
+.quiz_box_wrong{
+  border: 10px solid red;
+  float: right;
+  background-color: black;
+  color: white;
+  margin-right: 20%; 
+  margin-left: 3%;
+  margin-top: 20%;
+  font-size: 25px;
+  margin-bottom:10%;
+  padding:5%
 }
 
 
@@ -61,6 +86,18 @@
     color: red;
 }
 
+.instructions{
+  margin-left: 5%;
+  border: 10px solid orange;
+  background-color: black;
+  color: white;
+  margin-right: 20%; 
+  font-size: 25px;
+  width:40%;
+  padding:1%;
+  text-align: center;
+}
+
 
 
 
@@ -72,7 +109,7 @@
     </style>
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script> 
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3srrE7OGsBmuLf0uJqm8gqtgzxu2swLU&callback=initMap&v=weekly&libraries=geometry&libraries=places"
       defer
@@ -101,6 +138,7 @@
   let score = document.getElementById('score')
   let playAgain = document.getElementById('play_again')
   let msg = document.getElementById('msg')
+  let quizBox = document.getElementById('quiz_box')
   msg.style.display = 'none'
   score.style.display = "none"
   playAgain.style.display = 'none';
@@ -219,7 +257,8 @@ function rectangleBuilderFalse(i){
       msg.classList.remove('success')
       msg.style.display = "none"
       msg.classList.remove('wrong')
-
+      quizBox.classList.remove('quiz_box_success')
+      quizBox.classList.remove('quiz_box_wrong')
         //if we are on the first question
         if(questionState==0){
             //if the clicked longitude and latitude is within the bounds of the answer stored in the questionsObject, draw a green rectangle and add one to the score and tell user they got it correct
@@ -229,6 +268,8 @@ function rectangleBuilderFalse(i){
                 msg.style.display ='block'
                 msg.classList.add('success')
                 msg.innerText = "Answer " + questionsObject[questionState].id + " is Correct!"
+                quizBox.classList.remove('quiz_box')
+                quizBox.classList.add('quiz_box_success')
                
 
             } else {
@@ -237,7 +278,8 @@ function rectangleBuilderFalse(i){
                 msg.style.display ='block'
                 msg.classList.add('wrong')
                 msg.innerText = "Answer " +questionsObject[questionState].id+ " is Wrong!"
-                
+                quizBox.classList.remove('quiz_box')
+                quizBox.classList.add('quiz_box_wrong')
             }
         }
         if(questionState==1){
@@ -247,13 +289,16 @@ function rectangleBuilderFalse(i){
                 msg.style.display ='block'
                 msg.classList.add('success')
                 msg.innerText = "Answer " + questionsObject[questionState].id + " is Correct!"
+                quizBox.classList.remove('quiz_box')
+                quizBox.classList.add('quiz_box_success')
                
             } else {
                 rectangleBuilderFalse(questionState)
                 msg.style.display ='block'
                 msg.classList.add('wrong')
                 msg.innerText = "Answer " +questionsObject[questionState].id+ " is Wrong!"
-                
+                quizBox.classList.remove('quiz_box')
+                quizBox.classList.add('quiz_box_wrong')
             }
         }
         if(questionState==2){
@@ -263,12 +308,14 @@ function rectangleBuilderFalse(i){
                 msg.style.display ='block'
                 msg.classList.add('success')
                 msg.innerText = "Answer " + questionsObject[questionState].id + " is Correct!"
-               
+                quizBox.classList.remove('quiz_box')
+                quizBox.classList.add('quiz_box_success')
             } else {
                 msg.style.display ='block'
                 msg.classList.add('wrong')
                 msg.innerText = "Answer " +questionsObject[questionState].id+ " is Wrong!"
-                
+                quizBox.classList.remove('quiz_box')
+                quizBox.classList.add('quiz_box_wrong')
                 rectangleBuilderFalse(questionState)
             }
         }
@@ -279,12 +326,14 @@ function rectangleBuilderFalse(i){
                 msg.style.display ='block'
                 msg.classList.add('success')
                 msg.innerText = "Answer " + questionsObject[questionState].id + " is Correct!"
-               
+                quizBox.classList.remove('quiz_box')
+                quizBox.classList.add('quiz_box_success')
             } else {
                 msg.style.display ='block'
                 msg.classList.add('wrong')
                 msg.innerText = "Answer " +questionsObject[questionState].id+ " is Wrong!"
-                
+                quizBox.classList.remove('quiz_box')
+                quizBox.classList.add('quiz_box_wrong')
                 rectangleBuilderFalse(questionState)
             }
         }
@@ -295,12 +344,14 @@ function rectangleBuilderFalse(i){
                 msg.style.display ='block'
                 msg.classList.add('success')
                 msg.innerText = "Answer " + questionsObject[questionState].id + " is Correct!"
-                
+                quizBox.classList.remove('quiz_box')
+                quizBox.classList.add('quiz_box_success')
             } else {
                 msg.style.display ='block'
                 msg.classList.add('wrong')
                 msg.innerText = "Answer " +questionsObject[questionState].id+ " is Wrong!"
-                
+                quizBox.classList.remove('quiz_box')
+                quizBox.classList.add('quiz_box_wrong')
                 rectangleBuilderFalse(questionState)
             }
         }
@@ -355,7 +406,7 @@ window.initMap = initMap;
 
 
 <body>
-
+    <div class="instructions" id = "instructions"><p><h1>Instructions: </h1>Locate the target building on the map and double click on it!</p><p>There is a total of 5 questions. Your score will be displayed at the end!</p><p><strong>GoodLuck! :)</strong></p></div>
     <div id="quiz_box" class = "quiz_box">
         <div id="score" class= "score"></div>
       <div id="quiz_question" class="quiz_question"></div>
