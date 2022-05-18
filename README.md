@@ -6,7 +6,7 @@ This quiz was made to test one's knowledge about the CSUN campus buildings. They
 https://faizan12123.github.io/Google-Maps-API-Quiz-Game/ 
 
 
-##Instructions
+## Instructions
 
 Locate the target building on the map and double click on it! There is a total of 5 questions. Your score will be displayed at the end!
 
