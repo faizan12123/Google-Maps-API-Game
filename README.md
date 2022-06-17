@@ -3,7 +3,7 @@ This quiz was made to test one's knowledge about the CSUN campus buildings. They
 
 
 ## Link to the game hosted live
-https://faizan12123.github.io/Google-Maps-API-Quiz-Game/ 
+https://faizan12123.github.io/Google-Maps-API-Game/
 
 
 ## Instructions
